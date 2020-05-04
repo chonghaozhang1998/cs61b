@@ -1,6 +1,8 @@
 /**
  * Exercise to showcase the step over button.
- * Code adapted from https://stackoverflow.com/questions/4895173/bitwise-multiply-and-add-in-java and https://stackoverflow.com/questions/1533131/what-useful-bitwise-operator-code-tricks-should-a-developer-know-about
+ * Code adapted from https://stackoverflow.com/questions/4895173/bitwise-multiply-and-add-in-java
+ * and
+ * https://stackoverflow.com/questions/1533131/what-useful-bitwise-operator-code-tricks-should-a-developer-know-about
  */
 public class DebugExercise2 {
     /** Returns the max of a and b. Do not step into this function. 
@@ -70,7 +72,7 @@ public class DebugExercise2 {
 //    }
     public static int arraySum(int[] x) {
         int sum = 0;
-        for(int i = 0; i < x.length; i++) {
+        for (int i = 0; i < x.length; i++) {
             sum = add(sum, x[i]);
         }
         return sum;
