@@ -105,7 +105,7 @@ public class IntList {
         IntList res = new IntList();
         IntList ptr = res;
         if(A == null && B == null) {
-            return res;
+            return null;
         }
         while(A != null || B != null) {
             if(A != null) {
