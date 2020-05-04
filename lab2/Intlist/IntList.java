@@ -110,7 +110,7 @@ public class IntList {
                 ptr.rest = new IntList(A.first, null);
                 ptr = ptr.rest;
                 A = A.rest;
-            } else if(B != null) {ﬁ
+            } else if (B != null) {
                 ptr.rest = new IntList(B.first, null);
                 ptr = ptr.rest;
                 B = B.rest;
