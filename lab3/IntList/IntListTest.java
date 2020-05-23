@@ -31,11 +31,11 @@ public class IntListTest {
     public void testReverse() {
         IntList lNull = null;
         IntList.reverse(lNull);
-        IntList lReverse = IntList.of(1,2,3);
+        IntList lReverse = IntList.of(1, 2, 3);
         IntList destructive = lReverse;
         IntList res = IntList.reverse(lReverse);
         assertEquals(null, lNull);
-        assertEquals(IntList.of(3,2,1), res);
+        assertEquals(IntList.of(3, 2, 1), res);
         assertNotEquals(destructive, res);
     }
 
