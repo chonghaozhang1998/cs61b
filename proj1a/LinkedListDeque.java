@@ -78,6 +78,7 @@ public class LinkedListDeque<T> {
         while (temp.next != sentBack) {
             System.out.print(temp.next.item);
             System.out.print(" ");
+            temp = temp.next;
         }
     }
 
@@ -92,9 +93,8 @@ public class LinkedListDeque<T> {
         }
         size -= 1;
         T res = sentFront.next.item;
-        Node<T> temp = sentFront.next.prev;
         sentFront.next = sentFront.next.next;
-        temp = sentFront;
+        sentFront.next.prev = sentFront;
         return res;
     }
 
@@ -111,9 +111,8 @@ public class LinkedListDeque<T> {
         }
         size -= 1;
         T res = sentBack.prev.item;
-        Node<T> temp = sentBack.prev.next;
         sentBack.prev = sentBack.prev.prev;
-        temp = sentBack;
+        sentBack.prev.next = sentBack;
         return res;
     }
 
