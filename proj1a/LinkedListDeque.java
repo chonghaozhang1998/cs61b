@@ -128,7 +128,7 @@ public class LinkedListDeque<T> {
         if (index > size - 1) {
             return null;
         }
-        Node<T> temp = sentFront;
+        Node<T> temp = sentFront.next;
         while (index != 0) {
             temp = temp.next;
             index--;
