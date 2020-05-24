@@ -1,5 +1,5 @@
 public class LinkedListDeque<T> {
-    public class Node<T> {
+    private class Node<T> {
         public T item;
         public Node<T> prev;
         public Node<T> next;
@@ -27,6 +27,7 @@ public class LinkedListDeque<T> {
 
     /**
      * Adds an item of type T to the front of the deque
+     *
      * @param item add
      */
     public void addFirst(T item) {
@@ -37,6 +38,7 @@ public class LinkedListDeque<T> {
 
     /**
      * adds an item of type T to the back of the deque
+     *
      * @param item add
      */
     public void addLast(T item) {
@@ -49,6 +51,7 @@ public class LinkedListDeque<T> {
 
     /**
      * Returns true of deque is empty, otherwise return false
+     *
      * @return boolean
      */
     public boolean isEmpty() {
@@ -60,6 +63,7 @@ public class LinkedListDeque<T> {
 
     /**
      * Returns the number of the items in the deque
+     *
      * @return int
      */
     public int size() {
@@ -79,6 +83,7 @@ public class LinkedListDeque<T> {
 
     /**
      * Removes and returns the item at the front of the deque. If no such item exists, returns null
+     *
      * @return T
      */
     public T removeFirst() {
@@ -94,6 +99,7 @@ public class LinkedListDeque<T> {
 
     /**
      * Removes and returns the item at the back of the deque. If no such item exists, returns null
+     *
      * @return T
      */
 
@@ -110,6 +116,7 @@ public class LinkedListDeque<T> {
     /**
      * Gets the item at the given index, where 0 is the front, 1 is the next item
      * , and so forth. If no such item exists, returns null. Must not alter the deque!
+     *
      * @param index position
      * @return T
      */
@@ -129,7 +136,7 @@ public class LinkedListDeque<T> {
         return getRecursiveHelper(index, sentFront);
     }
 
-    public T getRecursiveHelper(int index, Node<T> cur) {
+    private T getRecursiveHelper(int index, Node<T> cur) {
         if (cur.next != null) {
             if (index == 0) {
                 return cur.next.item;

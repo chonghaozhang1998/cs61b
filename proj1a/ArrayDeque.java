@@ -14,7 +14,7 @@ public class ArrayDeque<T> {
         this.array = (T[]) new Object[8];
     }
 
-    public void resize() {
+    private void resize() {
         T[] temp = null;
         if (this.size >= this.capacity) {
             temp = (T[]) new Object[this.size * 2];
@@ -59,8 +59,7 @@ public class ArrayDeque<T> {
         this.size += 1;
         resize();
         this.array[nextLast] = item;
-        this.nextLast = this.nextLast + 1 > this.capacity - 1 ?
-                (this.nextLast + 1) % (this.capacity - 1) : this.nextLast + 1;
+        this.nextLast = this.nextLast + 1 > this.capacity - 1 ? (this.nextLast + 1) % (this.capacity - 1) : this.nextLast + 1;
     }
 
     public boolean isEmpty() {
@@ -89,9 +88,9 @@ public class ArrayDeque<T> {
         this.size -= 1;
         T res = null;
         int resIndex = 0;
-        if(this.nextFirst + 1 > this.capacity) {
+        if (this.nextFirst + 1 > this.capacity) {
             resIndex = 0;
-        }else {
+        } else {
             resIndex = this.nextFirst + 1;
         }
         res = this.array[resIndex];
@@ -122,7 +121,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        if(index > this.size) {
+        if (index > this.size) {
             return null;
         }
         int tempNextFirst = this.nextFirst;
