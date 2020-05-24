@@ -30,6 +30,7 @@ public class ArrayDeque<T> {
             this.capacity = this.size * 2;
             this.nextFirst = this.capacity - 1;
             this.nextLast = this.size;
+            this.array = temp;
         } else if (this.size < this.capacity / 2) {
             temp = (T[]) new Object[this.capacity / 2];
             int tempNextFirst = this.nextFirst;
@@ -44,8 +45,8 @@ public class ArrayDeque<T> {
             this.capacity = this.capacity / 2;
             this.nextFirst = this.capacity - 1;
             this.nextLast = this.size;
+            this.array = temp;
         }
-        this.array = temp;
     }
 
     public void addFirst(T item) {
