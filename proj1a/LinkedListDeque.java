@@ -73,7 +73,7 @@ public class LinkedListDeque<T> {
         Node<T> temp = sentFront;
         while (temp.next != sentBack) {
             System.out.print(temp.next.item);
-            System.out.println(" ");
+            System.out.print(" ");
         }
     }
 
@@ -130,15 +130,13 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursiveHelper(int index, Node<T> cur) {
-        if(index == 0) {
-            if(cur.next != null ) {
+        if (cur.next != null) {
+            if (index == 0) {
                 return cur.next.item;
             }
+            return getRecursiveHelper(index--, cur.next);
         }
-        if(index < 0) {
-            return null;
-        }
-        return getRecursiveHelper(index--, cur.next);
+        return null;
 
     }
 }
