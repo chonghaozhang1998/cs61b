@@ -113,8 +113,8 @@ public class LinkedListDeque<T> {
      * @param index position
      * @return T
      */
-    public T getRecursive(int index) {
-        if(index > size - 1) {
+    public T get(int index) {
+        if (index > size - 1) {
             return null;
         }
         Node<T> temp = sentFront;
@@ -123,5 +123,22 @@ public class LinkedListDeque<T> {
             index--;
         }
         return temp.item;
+    }
+
+    public T getRecursive(int index) {
+        return getRecursiveHelper(index, sentFront);
+    }
+
+    public T getRecursiveHelper(int index, Node<T> cur) {
+        if(index == 0) {
+            if(cur.next != null ) {
+                return cur.next.item
+            }
+        }
+        if(index < 0) {
+            return null;
+        }
+        return getRecursiveHelper(index--, cur.next);
+
     }
 }
