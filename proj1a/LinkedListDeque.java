@@ -144,7 +144,7 @@ public class LinkedListDeque<T> {
             if (index == 0) {
                 return cur.next.item;
             }
-            return getRecursiveHelper(index--, cur.next);
+            return getRecursiveHelper(index - 1, cur.next);
         }
         return null;
     }
