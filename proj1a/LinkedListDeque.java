@@ -132,7 +132,7 @@ public class LinkedListDeque<T> {
     public T getRecursiveHelper(int index, Node<T> cur) {
         if(index == 0) {
             if(cur.next != null ) {
-                return cur.next.item
+                return cur.next.item;
             }
         }
         if(index < 0) {
