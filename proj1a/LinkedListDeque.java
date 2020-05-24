@@ -30,9 +30,10 @@ public class LinkedListDeque<T> {
      * @param item add
      */
     public void addFirst(T item) {
-        size += 1;
-        Node<T> temp = sentFront.next;
-        sentFront.next = new Node<>(item, sentFront, temp);
+        this.size += 1;
+        Node<T> tempNext = this.sentFront.next;
+        this.sentFront.next = new Node<>(item, this.sentFront, tempNext);
+        tempNext.prev = this.sentFront.next;
     }
 
     /**
@@ -41,10 +42,10 @@ public class LinkedListDeque<T> {
      * @param item add
      */
     public void addLast(T item) {
-        size += 1;
-        Node<T> temp = sentBack.prev;
-        sentBack.prev = new Node<>(item, temp, sentBack);
-
+        this.size += 1;
+        Node<T> tempPrev = this.sentBack.prev;
+        this.sentBack.prev = new Node<>(item, tempPrev, this.sentBack);
+        tempPrev.next = this.sentBack.prev;
     }
 
 
@@ -91,7 +92,9 @@ public class LinkedListDeque<T> {
         }
         size -= 1;
         T res = sentFront.next.item;
+        Node<T> temp = sentFront.next.prev;
         sentFront.next = sentFront.next.next;
+        temp = sentFront;
         return res;
     }
 
@@ -108,7 +111,9 @@ public class LinkedListDeque<T> {
         }
         size -= 1;
         T res = sentBack.prev.item;
+        Node<T> temp = sentBack.prev.next;
         sentBack.prev = sentBack.prev.prev;
+        temp = sentBack;
         return res;
     }
 
@@ -143,6 +148,5 @@ public class LinkedListDeque<T> {
             return getRecursiveHelper(index--, cur.next);
         }
         return null;
-
     }
 }
