@@ -16,10 +16,10 @@ public class LinkedListDeque<T> {
     private Node<T> sentFront;
     private Node<T> sentBack;
 
-    public LinkedListDeque () {
+    public LinkedListDeque() {
         size = 0;
-        sentFront = new Node<>(null, null,null);
-        sentBack = new Node<>(null, null,null);
+        sentFront = new Node<>(null, null, null);
+        sentBack = new Node<>(null, null, null);
         sentBack.prev = sentFront;
         sentFront.next = sentBack;
     }
@@ -52,7 +52,7 @@ public class LinkedListDeque<T> {
      * @return boolean
      */
     public boolean isEmpty() {
-        if(size == 0) {
+        if (size == 0) {
             return true;
         }
         return false;
@@ -71,7 +71,7 @@ public class LinkedListDeque<T> {
      */
     public void printDeque() {
         Node<T> temp = sentFront;
-        while(temp.next != sentBack) {
+        while (temp.next != sentBack) {
             System.out.print(temp.next.item);
             System.out.println(" ");
         }
@@ -82,7 +82,7 @@ public class LinkedListDeque<T> {
      * @return T
      */
     public T removeFirst() {
-        if(size == 0) {
+        if (size == 0) {
             return null;
         }
         size -= 1;
@@ -97,8 +97,8 @@ public class LinkedListDeque<T> {
      * @return T
      */
 
-    public T removeLase() {
-        if(size == 0) {
+    public T removeLast() {
+        if (size == 0) {
             return null;
         }
         size -= 1;
@@ -113,14 +113,14 @@ public class LinkedListDeque<T> {
      * @param index position
      * @return T
      */
-    public T get(int index) {
+    public T getRecursive(int index) {
         if(index > size - 1) {
             return null;
         }
         Node<T> temp = sentFront;
-        while(index != 0) {
+        while (index != 0) {
             temp = temp.next;
-            index --;
+            index--;
         }
         return temp.item;
     }
