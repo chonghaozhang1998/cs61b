@@ -1,6 +1,4 @@
-import org.junit.Test;
-
-public class ArrayDeque<T> implements Deque<T>{
+public class ArrayDeque<T> implements Deque<T> {
     private int size;
     private int capacity;
     private int nextFirst;

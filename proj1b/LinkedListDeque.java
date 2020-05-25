@@ -1,4 +1,4 @@
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     private class Node<T> {
         private T item;
         private Node<T> prev;
@@ -30,6 +30,7 @@ public class LinkedListDeque<T> {
      *
      * @param item add
      */
+    @Override
     public void addFirst(T item) {
         this.size += 1;
         Node<T> tempNext = this.sentFront.next;
@@ -42,6 +43,7 @@ public class LinkedListDeque<T> {
      *
      * @param item add
      */
+    @Override
     public void addLast(T item) {
         this.size += 1;
         Node<T> tempPrev = this.sentBack.prev;
@@ -55,6 +57,7 @@ public class LinkedListDeque<T> {
      *
      * @return boolean
      */
+    @Override
     public boolean isEmpty() {
         if (size == 0) {
             return true;
@@ -67,6 +70,7 @@ public class LinkedListDeque<T> {
      *
      * @return int
      */
+    @Override
     public int size() {
         return size;
     }
@@ -74,6 +78,7 @@ public class LinkedListDeque<T> {
     /**
      * Prints the items in the deque from first to last, separated by a space
      */
+    @Override
     public void printDeque() {
         Node<T> temp = sentFront;
         while (temp.next != sentBack) {
@@ -88,6 +93,7 @@ public class LinkedListDeque<T> {
      *
      * @return T
      */
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -105,7 +111,7 @@ public class LinkedListDeque<T> {
      *
      * @return T
      */
-
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -124,6 +130,7 @@ public class LinkedListDeque<T> {
      * @param index position
      * @return T
      */
+    @Override
     public T get(int index) {
         if (index > size - 1) {
             return null;
