@@ -9,6 +9,7 @@ public class LinkedListDeque<T> {
             this.prev = prev;
             this.next = next;
         }
+        
     }
 
     private int size;
