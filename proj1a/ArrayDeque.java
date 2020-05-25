@@ -14,9 +14,6 @@ public class ArrayDeque<T> {
         this.array = (T[]) new Object[8];
     }
 
-    public int getCapacity() {
-        return this.capacity;
-    }
 
     private void resizeLarge() {
         T[] temp = null;
@@ -40,7 +37,7 @@ public class ArrayDeque<T> {
 
     private void resizeSmall() {
         T[] temp = null;
-        if (this.size < (this.capacity)/ 2) {
+        if (this.size < (this.capacity) / 2) {
             temp = (T[]) new Object[this.capacity / 2];
             int tempNextFirst = this.nextFirst;
             int i = this.size;
