@@ -21,11 +21,11 @@ public class TestPalindrome {
     @Test
     public void testPalindrome() {
 //        The following test if for isPalindrome(String word);
-//        assertFalse(palindrome.isPalindrome("cat"));
-//        assertFalse(palindrome.isPalindrome("aA"));
-//        assertTrue(palindrome.isPalindrome("noon"));
-//        assertTrue(palindrome.isPalindrome("racecar"));
-//        assertTrue(palindrome.isPalindrome("aaaaaaaaaa"));
+        assertFalse(palindrome.isPalindrome("cat"));
+        assertFalse(palindrome.isPalindrome("aA"));
+        assertTrue(palindrome.isPalindrome("noon"));
+        assertTrue(palindrome.isPalindrome("racecar"));
+        assertTrue(palindrome.isPalindrome("aaaaaaaaaa"));
 //        The following test if for isPalindrome(String word, CharacterComparator cc);
         CharacterComparator cc = new OffByOne();
         assertEquals(true, palindrome.isPalindrome("ab", cc));
