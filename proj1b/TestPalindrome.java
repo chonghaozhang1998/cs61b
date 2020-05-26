@@ -28,6 +28,10 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("aaaaaaaaaa"));
 //        The following test if for isPalindrome(String word, CharacterComparator cc);
         CharacterComparator cc = new OffByOne();
-        assertEquals(true, palindrome.isPalindrome("ab", cc));
+        assertEquals(false, palindrome.isPalindrome("cat"));
+        assertEquals(false, palindrome.isPalindrome("aA"));
+        assertEquals(true, palindrome.isPalindrome("noon"));
+        assertEquals(true, palindrome.isPalindrome("racecar"));
+        assertEquals(true, palindrome.isPalindrome("aaaaaaaaaa"));
     }
 }
