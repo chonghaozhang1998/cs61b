@@ -15,7 +15,8 @@ public class TestArrayRingBuffer {
         arb.enqueue(2);
         arb.enqueue(3);
         for (int i = 0; i < 3; i++) {
-            System.out.println(arb.dequeue());
+            int j = arb.dequeue();
+            System.out.println(j);
         }
         for (int i = 0; i < 5; i++) {
             arb.enqueue(i * 2);
