@@ -1,4 +1,3 @@
-// TODO: Make sure to make this class a part of the synthesizer package
 package synthesizer;
 
 //Make sure this class is public
@@ -16,7 +15,7 @@ public class GuitarString {
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-        // TODO: Create a buffer with capacity = SR / frequency. You'll need to
+        //       Create a buffer with capacity = SR / frequency. You'll need to
         //       cast the result of this divsion operation into an int. For better
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
