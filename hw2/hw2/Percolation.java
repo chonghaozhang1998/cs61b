@@ -13,6 +13,9 @@ public class Percolation {
 
     private int N;
 
+    private int virtualTop;
+    private int virtualBottom;
+
     private int currentIndices(int row, int col) {
         return this.N * row + col;
     }
@@ -23,8 +26,14 @@ public class Percolation {
             throw new IllegalArgumentException("Wrong intput(N should > 0)");
         }
         this.N = N;
-        this.weightedQuickUnionUF = new WeightedQuickUnionUF(N * N);
+        this.weightedQuickUnionUF = new WeightedQuickUnionUF(N * N + 2);
         // weightedQuickUnionUF does not contain N * N but contains N * N - 1
+        this.virtualTop = this.N * this.N;
+        this.virtualBottom = this.N * this.N + 1;
+        for (int i = 0; i < this.N; i++) {
+            this.weightedQuickUnionUF.union(currentIndices(0, i), this.virtualTop);
+            this.weightedQuickUnionUF.union(currentIndices(this.N - 1, i), this.virtualBottom);
+        }
         this.numberOfOpenSites = 0;
         this.sites = new boolean[N][N];
         for (int i = 0; i < N; i++) {
@@ -96,12 +105,11 @@ public class Percolation {
             return res;
         }
         int currentIndices = currentIndices(row, col);
-        for (int i = 0; i < this.N; i++) {
-            if (weightedQuickUnionUF.connected(i, currentIndices)) {
-                res = true;
-                break;
-            }
-        }
+        int aboveIndices = currentIndices(row - 1, col);
+        int belowIndices = currentIndices(row + 1, col);
+        int leftIndices = currentIndices(row, col - 1);
+        int rightIndices = currentIndices(row, col + 1);
+
         return res;
     }
 
@@ -113,35 +121,36 @@ public class Percolation {
     //does the system percolate?
     public boolean percolates() {
         boolean res = false;
-        for (int top = 0; top < this.N; top++) {
-            int start = currentIndices(this.N - 1, 0);
-            int end = currentIndices(this.N - 1, this.N - 1);
-            for (int bottom = start; bottom <= end; bottom++) {
-                if (weightedQuickUnionUF.connected(top, bottom)) {
-                    res = true;
-                    break;
-                }
-            }
-        }
+        res = this.weightedQuickUnionUF.connected(this.virtualTop, this.virtualBottom);
+//        for (int top = 0; top < this.N; top++) {
+//            int start = currentIndices(this.N - 1, 0);
+//            int end = currentIndices(this.N - 1, this.N - 1);
+//            for (int bottom = start; bottom <= end; bottom++) {
+//                if (weightedQuickUnionUF.connected(top, bottom)) {
+//                    res = true;
+//                    break;
+//                }
+//            }
+//        }
         return res;
     }
 
     //use for unit testing (not required)
     public static void main(String[] args) {
         Percolation percolation = new Percolation(5);
-        percolation.open(0, 0);
-        percolation.open(4, 0);
-        percolation.open(4, 4);
-        percolation.open(0, 4);
-        System.out.println(percolation.isOpen(0, 0));
-        System.out.println(percolation.isOpen(0, 4));
-        System.out.println(percolation.isOpen(4, 4));
-        System.out.println(percolation.isOpen(4, 0));
-        System.out.println(percolation.isFull(0, 0));
-        System.out.println(percolation.isFull(0, 4));
-        System.out.println(percolation.isFull(4, 4));
-        System.out.println(percolation.isFull(4, 0));
-        System.out.println(percolation.isFull(0, 1));
+//        percolation.open(0, 0);
+//        percolation.open(4, 0);
+//        percolation.open(4, 4);
+//        percolation.open(0, 4);
+//        System.out.println(percolation.isOpen(0, 0));
+//        System.out.println(percolation.isOpen(0, 4));
+//        System.out.println(percolation.isOpen(4, 4));
+//        System.out.println(percolation.isOpen(4, 0));
+//        System.out.println(percolation.isFull(0, 0));
+//        System.out.println(percolation.isFull(0, 4));
+//        System.out.println(percolation.isFull(4, 4));
+//        System.out.println(percolation.isFull(4, 0));
+//        System.out.println(percolation.isFull(0, 1));
         System.out.println(percolation.percolates());
         System.out.println(percolation.numberOfOpenSites());
     }
