@@ -5,7 +5,7 @@ import edu.princeton.cs.introcs.StdStats;
 
 
 public class PercolationStats {
-    double[] results; // record the fraction of sites that are opened when the system percolates
+    private double[] results; // record the fraction of sites that are opened when the system percolates
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -18,7 +18,8 @@ public class PercolationStats {
             while (!percolation.percolates()) {
                 int row = StdRandom.uniform(0, N);
                 int col = StdRandom.uniform(0, N);
-                // StdRandom.uniform(int a, int b) uniformly generate integers between a(inclusive) and b(exclusive)
+                // StdRandom.uniform(int a, int b) uniformly generate
+                // integers between a(inclusive) and b(exclusive)
                 percolation.open(row, col);
             }
             double fractionOfOpenToBlocked = percolation.numberOfOpenSites() / (N * N);

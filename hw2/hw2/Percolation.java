@@ -1,6 +1,5 @@
 package hw2;
 
-import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
@@ -46,16 +45,17 @@ public class Percolation {
     //open the site (row, col) if it is not open
     public void open(int row, int col) {
         if (row < 0 || row > this.N - 1 || col < 0 || col > this.N - 1) {
-            throw new IndexOutOfBoundsException("Wrong input(row and col should be integers between 0 and N - 1)");
+            throw new IndexOutOfBoundsException("Wrong input" +
+                    "(row and col should be integers between 0 and N - 1)");
         }
         if (!sites[row][col]) {
             this.sites[row][col] = true;
             this.numberOfOpenSites += 1;
             int currentIndices = currentIndices(row, col);
-            int aboveIndices = currentIndices - this.N;
-            int belowIndices = currentIndices + this.N;
-            int leftIndices = currentIndices - 1;
-            int rightIndices = currentIndices + 1;
+            int aboveIndices = currentIndices(row - 1, col);
+            int belowIndices = currentIndices(row + 1, col);
+            int leftIndices = currentIndices(row, col - 1);
+            int rightIndices = currentIndices (row, col + 1);
             boolean above = true;
             boolean below = true;
             boolean left = true;
@@ -72,16 +72,16 @@ public class Percolation {
             if (col == this.N - 1) {
                 right = false;
             }
-            if (above == true && sites[row - 1][col]) {
+            if (above && sites[row - 1][col]) {
                 weightedQuickUnionUF.union(currentIndices, aboveIndices);
             }
-            if (below == true && sites[row + 1][col]) {
+            if (below && sites[row + 1][col]) {
                 weightedQuickUnionUF.union(currentIndices, belowIndices);
             }
-            if (left == true && sites[row][col - 1]) {
+            if (left && sites[row][col - 1]) {
                 weightedQuickUnionUF.union(currentIndices, leftIndices);
             }
-            if (right == true && sites[row][col + 1]) {
+            if (right && sites[row][col + 1]) {
                 weightedQuickUnionUF.union(currentIndices, rightIndices);
             }
         }
@@ -90,7 +90,8 @@ public class Percolation {
     //is the site (row, col) open?
     public boolean isOpen(int row, int col) {
         if (row < 0 || row > this.N - 1 || col < 0 || col > this.N - 1) {
-            throw new IndexOutOfBoundsException("Wrong input(row and col should be integers between 0 and N - 1)");
+            throw new IndexOutOfBoundsException("Wrong input" +
+                    "(row and col should be integers between 0 and N - 1)");
         }
         return this.sites[row][col];
     }
@@ -98,18 +99,13 @@ public class Percolation {
     //is the site (row, col) full?
     public boolean isFull(int row, int col) {
         if (row < 0 || row > this.N - 1 || col < 0 || col > this.N - 1) {
-            throw new IndexOutOfBoundsException("Wrong input(row and col should be integers between 0 and N - 1)");
+            throw new IndexOutOfBoundsException("Wrong input" +
+                    "(row and col should be integers between 0 and N - 1)");
         }
         boolean res = false;
-        if (!this.isOpen(row, col)) {
-            return res;
-        }
         int currentIndices = currentIndices(row, col);
-        int aboveIndices = currentIndices(row - 1, col);
-        int belowIndices = currentIndices(row + 1, col);
-        int leftIndices = currentIndices(row, col - 1);
-        int rightIndices = currentIndices(row, col + 1);
-
+        res = this.isOpen(row, col) &&
+                this.weightedQuickUnionUF.connected(currentIndices, this.virtualTop);
         return res;
     }
 
@@ -121,7 +117,11 @@ public class Percolation {
     //does the system percolate?
     public boolean percolates() {
         boolean res = false;
-        res = this.weightedQuickUnionUF.connected(this.virtualTop, this.virtualBottom);
+        if (this.N == 1) {
+            res = this.isOpen(0, 0);
+        } else {
+            res = this.weightedQuickUnionUF.connected(this.virtualTop, this.virtualBottom);
+        }
 //        for (int top = 0; top < this.N; top++) {
 //            int start = currentIndices(this.N - 1, 0);
 //            int end = currentIndices(this.N - 1, this.N - 1);
