@@ -15,6 +15,10 @@ public class Percolation {
     private int virtualTop;
     private int virtualBottom;
 
+    // solve backwash problem
+    private int backwashVirtualTop;
+    private WeightedQuickUnionUF backwashWeightedQuickUnionUF;
+
     private int currentIndices(int row, int col) {
         return this.N * row + col;
     }
@@ -40,13 +44,20 @@ public class Percolation {
                 this.sites[i][j] = false;
             }
         }
+
+        // solve backwash problem
+        this.backwashWeightedQuickUnionUF = new WeightedQuickUnionUF(N * N + 1);
+        this.backwashVirtualTop = N * N;
+        for (int i = 0; i < this.N; i++) {
+            this.backwashWeightedQuickUnionUF.union(currentIndices(0, i), this.backwashVirtualTop);
+        }
     }
 
     //open the site (row, col) if it is not open
     public void open(int row, int col) {
         if (row < 0 || row > this.N - 1 || col < 0 || col > this.N - 1) {
-            throw new IndexOutOfBoundsException("Wrong input" +
-                    "(row and col should be integers between 0 and N - 1)");
+            throw new IndexOutOfBoundsException("Wrong input"
+                    + "(row and col should be integers between 0 and N - 1)");
         }
         if (!sites[row][col]) {
             this.sites[row][col] = true;
@@ -55,7 +66,7 @@ public class Percolation {
             int aboveIndices = currentIndices(row - 1, col);
             int belowIndices = currentIndices(row + 1, col);
             int leftIndices = currentIndices(row, col - 1);
-            int rightIndices = currentIndices (row, col + 1);
+            int rightIndices = currentIndices(row, col + 1);
             boolean above = true;
             boolean below = true;
             boolean left = true;
@@ -73,16 +84,20 @@ public class Percolation {
                 right = false;
             }
             if (above && sites[row - 1][col]) {
-                weightedQuickUnionUF.union(currentIndices, aboveIndices);
+                this.weightedQuickUnionUF.union(currentIndices, aboveIndices);
+                this.backwashWeightedQuickUnionUF.union(currentIndices, aboveIndices);
             }
             if (below && sites[row + 1][col]) {
-                weightedQuickUnionUF.union(currentIndices, belowIndices);
+                this.weightedQuickUnionUF.union(currentIndices, belowIndices);
+                this.backwashWeightedQuickUnionUF.union(currentIndices, belowIndices);
             }
             if (left && sites[row][col - 1]) {
-                weightedQuickUnionUF.union(currentIndices, leftIndices);
+                this.weightedQuickUnionUF.union(currentIndices, leftIndices);
+                this.backwashWeightedQuickUnionUF.union(currentIndices, leftIndices);
             }
             if (right && sites[row][col + 1]) {
-                weightedQuickUnionUF.union(currentIndices, rightIndices);
+                this.weightedQuickUnionUF.union(currentIndices, rightIndices);
+                this.backwashWeightedQuickUnionUF.union(currentIndices, rightIndices);
             }
         }
     }
@@ -90,8 +105,8 @@ public class Percolation {
     //is the site (row, col) open?
     public boolean isOpen(int row, int col) {
         if (row < 0 || row > this.N - 1 || col < 0 || col > this.N - 1) {
-            throw new IndexOutOfBoundsException("Wrong input" +
-                    "(row and col should be integers between 0 and N - 1)");
+            throw new IndexOutOfBoundsException("Wrong input"
+                    + "(row and col should be integers between 0 and N - 1)");
         }
         return this.sites[row][col];
     }
@@ -99,13 +114,16 @@ public class Percolation {
     //is the site (row, col) full?
     public boolean isFull(int row, int col) {
         if (row < 0 || row > this.N - 1 || col < 0 || col > this.N - 1) {
-            throw new IndexOutOfBoundsException("Wrong input" +
-                    "(row and col should be integers between 0 and N - 1)");
+            throw new IndexOutOfBoundsException("Wrong input"
+                    + "(row and col should be integers between 0 and N - 1)");
         }
         boolean res = false;
         int currentIndices = currentIndices(row, col);
-        res = this.isOpen(row, col) &&
-                this.weightedQuickUnionUF.connected(currentIndices, this.virtualTop);
+        res = this.isOpen(row, col)
+                && this.weightedQuickUnionUF
+                .connected(currentIndices, this.virtualTop)
+                && this.backwashWeightedQuickUnionUF
+                .connected(currentIndices, this.backwashVirtualTop);
         return res;
     }
 

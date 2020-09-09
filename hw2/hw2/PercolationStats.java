@@ -5,7 +5,8 @@ import edu.princeton.cs.introcs.StdStats;
 
 
 public class PercolationStats {
-    private double[] results; // record the fraction of sites that are opened when the system percolates
+    private double[] results;
+    // record the fraction of sites that are opened when the system percolates
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -63,10 +64,10 @@ public class PercolationStats {
 
 
     // for unit testing
-    public static void main(String[] args) {
-        PercolationStats percolationStats = new PercolationStats(20, 10, new PercolationFactory());
-        System.out.println(percolationStats.mean());
-        System.out.println(percolationStats.stddev());
-    }
+//public static void main(String[] args) {
+//    PercolationStats percolationStats = new PercolationStats(20, 10, new PercolationFactory());
+//    System.out.println(percolationStats.mean());
+//    System.out.println(percolationStats.stddev());
+//}
 
 }
