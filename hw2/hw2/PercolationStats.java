@@ -31,25 +31,11 @@ public class PercolationStats {
     // sample mean of percolation threshold
     public double mean() {
         return StdStats.mean(results);
-//        double sum = 0;
-//        for (double res : results) {
-//            sum += res;
-//        }
-//        return sum / results.length;
     }
 
     // sample standard deviation of percolation threshold
     public double stddev() {
         return StdStats.stddev(results);
-//        if (results.length <= 1) {
-//            throw new IllegalArgumentException("Times(T) should be larger than 1");
-//        }
-//        double variance = 0;
-//        double mean = this.mean();
-//        for (int i = 0; i < results.length; i++) {
-//            variance += Math.pow (results[i] - mean, 2);
-//        }
-//        return Math.pow(variance / (results.length - 1), 0.5);
     }
 
     // low endpoint of 95% confidence interval

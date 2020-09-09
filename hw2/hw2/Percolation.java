@@ -9,7 +9,7 @@ public class Percolation {
     // true represents that site is open
     // false represents that site is not open
     private int numberOfOpenSites;
-
+    
     private int N;
 
     private int virtualTop;
@@ -140,16 +140,6 @@ public class Percolation {
         } else {
             res = this.weightedQuickUnionUF.connected(this.virtualTop, this.virtualBottom);
         }
-//        for (int top = 0; top < this.N; top++) {
-//            int start = currentIndices(this.N - 1, 0);
-//            int end = currentIndices(this.N - 1, this.N - 1);
-//            for (int bottom = start; bottom <= end; bottom++) {
-//                if (weightedQuickUnionUF.connected(top, bottom)) {
-//                    res = true;
-//                    break;
-//                }
-//            }
-//        }
         return res;
     }
 
