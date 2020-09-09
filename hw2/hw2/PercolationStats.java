@@ -22,12 +22,12 @@ public class PercolationStats {
                 // integers between a(inclusive) and b(exclusive)
                 percolation.open(row, col);
             }
-            double fractionOfOpenToBlocked = percolation.numberOfOpenSites() / (N * N);
+            double fractionOfOpenToBlocked = (double) percolation.numberOfOpenSites() / (N * N);
             results[i] = fractionOfOpenToBlocked;
         }
     }
 
-    //sample mean of percolation threshold
+    // sample mean of percolation threshold
     public double mean() {
         return StdStats.mean(results);
 //        double sum = 0;
@@ -37,7 +37,7 @@ public class PercolationStats {
 //        return sum / results.length;
     }
 
-    //sample standard deviation of percolation threshold
+    // sample standard deviation of percolation threshold
     public double stddev() {
         return StdStats.stddev(results);
 //        if (results.length <= 1) {
@@ -51,14 +51,22 @@ public class PercolationStats {
 //        return Math.pow(variance / (results.length - 1), 0.5);
     }
 
-    //low endpoint of 95% confidence interval
+    // low endpoint of 95% confidence interval
     public double confidenceLow() {
         return this.mean() - 1.96 * this.stddev() / Math.pow(results.length, 0.5);
     }
 
-    //high endpoin of 95% confidence interval
+    // high endpoin of 95% confidence interval
     public double confidenceHigh() {
         return this.mean() + 1.96 * this.stddev() / Math.pow(results.length, 0.5);
+    }
+
+
+    // for unit testing
+    public static void main(String[] args) {
+        PercolationStats percolationStats = new PercolationStats(20, 10, new PercolationFactory());
+        System.out.println(percolationStats.mean());
+        System.out.println(percolationStats.stddev());
     }
 
 }
