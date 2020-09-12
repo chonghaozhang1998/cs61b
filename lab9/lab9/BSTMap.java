@@ -95,7 +95,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         this.size++;
         if (root == null) {
             root = new Node(key, value);
-        } else{
+        } else {
             putHelper(key, value, root);
         }
     }

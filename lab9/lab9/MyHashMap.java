@@ -65,6 +65,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         if (this.loadFactor() > MAX_LF) {
             ArrayMap<K, V>[] newMap = new ArrayMap[buckets.length * 2];
             for (int i = 0; i < buckets.length; i++) {
+                if (buckets[i].size == 0) {
+                    continue;
+                }
                 for (K k : buckets[i].keySet()) {
                     newMap[i].put(k, buckets[i].get(k));
                 }
