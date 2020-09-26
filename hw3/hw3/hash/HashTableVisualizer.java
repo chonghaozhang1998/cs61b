@@ -14,16 +14,24 @@ public class HashTableVisualizer {
            nicely, be sure to try
            scale = 0.5, N = 2000, M = 100. */
 
-        double scale = 1.0;
-        int N = 100;
+        double scale = 0.5;
+        int N = 2000;
         int M = 10;
 
+//        HashTableDrawingUtility.setScale(scale);
+//        List<Oomage> oomies = new ArrayList<>();
+//        for (int i = 0; i < N; i += 1) {
+//           oomies.add(SimpleOomage.randomSimpleOomage());
+//        }
+//        visualize(oomies, M, scale);
+
+        // the following code is for finding flaws in the HashCode() of ComplexOomage
         HashTableDrawingUtility.setScale(scale);
-        List<Oomage> oomies = new ArrayList<>();
-        for (int i = 0; i < N; i += 1) {
-           oomies.add(SimpleOomage.randomSimpleOomage());
+        List<Oomage> complexOomages = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            complexOomages.add(ComplexOomage.randomComplexOomage());
         }
-        visualize(oomies, M, scale);
+        visualize(complexOomages, M, scale);
     }
 
     public static void visualize(List<Oomage> oomages, int M, double scale) {
