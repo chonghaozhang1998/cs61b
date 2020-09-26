@@ -42,9 +42,9 @@ public class TestComplexOomage {
         List<Oomage> deadlyList = new ArrayList<>();
 
         // Your code here.
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 20; i++) {
             List<Integer> integerList = new ArrayList<>();
-            for (int j = 0; j < i * 10; j++) {
+            for (int j = 0; j < i * 100; j++) {
                 integerList.add(255);
             }
             ComplexOomage oo = new ComplexOomage(integerList);
