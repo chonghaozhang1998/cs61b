@@ -37,8 +37,8 @@ public class Solver {
                 break;
             }
             for (WorldState worldState : resultSearchNode.worldState.neighbors()) {
-                if (resultSearchNode.previous == null ||
-                        !worldState.equals(resultSearchNode.previous.worldState)) {
+                if (resultSearchNode.previous == null
+                        || !worldState.equals(resultSearchNode.previous.worldState)) {
                     minPQ.insert(new SearchNode(worldState,
                             resultSearchNode.moves + 1,
                             resultSearchNode));

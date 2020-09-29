@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Board implements WorldState {
-    private int[][] board;
+    public int[][] board;
 
     // Constructs a board from an N-by-N array of tiles where
     // tiles[i][j] = tile at row i, column j
@@ -109,7 +109,6 @@ public class Board implements WorldState {
                 }
                 break;
             default:
-                ;// do nothing
         }
         return res;
     }
@@ -142,7 +141,6 @@ public class Board implements WorldState {
                 movedBoard[blankPosRow + 1][blankPosCol] = 0;
                 break;
             default:
-                ; // do nothing
         }
         return movedBoard;
     }
@@ -209,10 +207,13 @@ public class Board implements WorldState {
             return false;
         }
         Board yBoard = (Board) y;
+        if (yBoard.size() != this.size()) {
+            return false;
+        }
         boolean res = true;
         for (int i = 0; i < this.size(); i++) {
             for (int j = 0; j < this.size(); j++) {
-                if (!Integer.valueOf(yBoard.tileAt(i, j)).equals(this.tileAt(i, j))) {
+                if (yBoard.board[i][j] != this.board[i][j]) {
                     res = false;
                     break;
                 }
