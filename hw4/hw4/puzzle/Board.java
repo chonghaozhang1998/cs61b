@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Board implements WorldState {
-    public int[][] board;
+    private int[][] board;
 
     // Constructs a board from an N-by-N array of tiles where
     // tiles[i][j] = tile at row i, column j
@@ -53,16 +53,16 @@ public class Board implements WorldState {
             }
         }
         if (isDirectionLegal(blankPosRow, blankPosCol, "right")) {
-            res.add(new Board(movedBoard(this.board, blankPosRow, blankPosCol, "right")));
+            res.add(new Board(movedBoard(blankPosRow, blankPosCol, "right")));
         }
         if (isDirectionLegal(blankPosRow, blankPosCol, "left")) {
-            res.add(new Board(movedBoard(this.board, blankPosRow, blankPosCol, "left")));
+            res.add(new Board(movedBoard(blankPosRow, blankPosCol, "left")));
         }
         if (isDirectionLegal(blankPosRow, blankPosCol, "above")) {
-            res.add(new Board(movedBoard(this.board, blankPosRow, blankPosCol, "above")));
+            res.add(new Board(movedBoard(blankPosRow, blankPosCol, "above")));
         }
         if (isDirectionLegal(blankPosRow, blankPosCol, "below")) {
-            res.add(new Board(movedBoard(this.board, blankPosRow, blankPosCol, "below")));
+            res.add(new Board(movedBoard(blankPosRow, blankPosCol, "below")));
         }
         return res;
     }
@@ -116,12 +116,11 @@ public class Board implements WorldState {
     /**
      * move the tile which is at the right of the blank tile to the blank tile Postion
      *
-     * @param board       the original board
      * @param blankPosRow the row position of the blank tile
      * @param blankPosCol the col position of the blank tile
      * @return the moved board
      */
-    private int[][] movedBoard(int[][] board, int blankPosRow, int blankPosCol, String direction) {
+    private int[][] movedBoard(int blankPosRow, int blankPosCol, String direction) {
         int[][] movedBoard = copy();
         switch (direction) {
             case "right":
