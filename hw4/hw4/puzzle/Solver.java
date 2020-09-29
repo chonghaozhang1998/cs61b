@@ -10,15 +10,14 @@ public final class Solver {
         int moves;
         SearchNode previous;
 
-        public SearchNode(WorldState worldState, int moves, SearchNode searchNode) {
+        public SearchNode(WorldState worldState, int moves, SearchNode previous) {
             this.worldState = worldState;
             this.moves = moves;
-            this.previous = searchNode;
+            this.previous = previous;
         }
     }
 
     private List<WorldState> res = new ArrayList<>();
-    private int moves = 0;
 
     public Solver(WorldState initial) {
         MinPQ<SearchNode> minPQ = new MinPQ<>(new Comparator<SearchNode>() {
@@ -28,44 +27,22 @@ public final class Solver {
                         - o2.worldState.estimatedDistanceToGoal() - o2.moves;
             }
         });
-        SearchNode initialSearchNode = new SearchNode(initial, 0, null);
-        minPQ.insert(initialSearchNode);
+        minPQ.insert(new SearchNode(initial, 0, null));
+        SearchNode resultSearchNode = null;
         while (!minPQ.isEmpty()) {
-            SearchNode x = minPQ.delMin();
-            this.res.add(x.worldState);
-            if (x.worldState.isGoal()) {
+            resultSearchNode = minPQ.delMin();
+            if (resultSearchNode.worldState.isGoal()) {
                 break;
             }
-            this.moves++;
-
-            int nextMoves = x.moves + 1;
-            for (WorldState worldState : x.worldState.neighbors()) {
-                boolean tag = false;
-//                Iterator<SearchNode> searchNodeIterator = minPQ.iterator();
-//                while (searchNodeIterator.hasNext()) {
-//                    if (searchNodeIterator.next().worldState.equals(worldState)) {
-//                        tag = true;
-//                        break;
-//                    }
-//                }
-//
-//                SearchNode previousSearchNode = x.previous;
-//                while (previousSearchNode != null) {
-//                    if (previousSearchNode.worldState.equals(worldState)) {
-//                        tag = true;
-//                        break;
-//                    }
-//                    previousSearchNode = previousSearchNode.previous;
-//                }
-
-
-                if (!tag) {
-                    SearchNode enqueuingSearchNode = new SearchNode(worldState, nextMoves, x);
-                    minPQ.insert(enqueuingSearchNode);
-                }
+            for (WorldState worldState : resultSearchNode.worldState.neighbors()) {
+                if (resultSearchNode.previous == null || !worldState.equals(resultSearchNode.previous.worldState))
+                    minPQ.insert(new SearchNode(worldState, resultSearchNode.moves + 1, resultSearchNode));
             }
         }
-
+        while (resultSearchNode != null) {
+            res.add(0, resultSearchNode.worldState);
+            resultSearchNode = resultSearchNode.previous;
+        }
 
     }
 
@@ -73,7 +50,7 @@ public final class Solver {
     // Returns the minimum number of moves to solve the puzzle starting
     // at the initial WorldState.
     public int moves() {
-        return this.moves;
+        return this.res.size() - 1;
     }
 
     // Returns a sequence of WorldStates from the initial WorldState
@@ -82,3 +59,4 @@ public final class Solver {
         return this.res;
     }
 }
+
