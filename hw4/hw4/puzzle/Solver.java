@@ -2,9 +2,11 @@ package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.ArrayList;
 
-public final class Solver {
+public class Solver {
     private class SearchNode {
         WorldState worldState;
         int moves;
@@ -35,8 +37,12 @@ public final class Solver {
                 break;
             }
             for (WorldState worldState : resultSearchNode.worldState.neighbors()) {
-                if (resultSearchNode.previous == null || !worldState.equals(resultSearchNode.previous.worldState))
-                    minPQ.insert(new SearchNode(worldState, resultSearchNode.moves + 1, resultSearchNode));
+                if (resultSearchNode.previous == null ||
+                        !worldState.equals(resultSearchNode.previous.worldState)) {
+                    minPQ.insert(new SearchNode(worldState,
+                            resultSearchNode.moves + 1,
+                            resultSearchNode));
+                }
             }
         }
         while (resultSearchNode != null) {

@@ -1,6 +1,5 @@
 package hw4.puzzle;
 
-import java.lang.IndexOutOfBoundsException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -109,6 +108,8 @@ public class Board implements WorldState {
                     res = false;
                 }
                 break;
+            default:
+                ;// do nothing
         }
         return res;
     }
@@ -140,6 +141,8 @@ public class Board implements WorldState {
                 movedBoard[blankPosRow][blankPosCol] = movedBoard[blankPosRow + 1][blankPosCol];
                 movedBoard[blankPosRow + 1][blankPosCol] = 0;
                 break;
+            default:
+                ; // do nothing
         }
         return movedBoard;
     }
@@ -170,19 +173,19 @@ public class Board implements WorldState {
                 if (tileAt(i, j) == 0) {
                     continue;
                 }
-                int originalPosRow = this.changeIntegerToPosRow(tileAt(i,j));
-                int originalPosCol = this.changeIntegerToPosCol(tileAt(i,j));
+                int originalPosRow = this.changeIntegerToPosRow(tileAt(i, j));
+                int originalPosCol = this.changeIntegerToPosCol(tileAt(i, j));
                 res += Math.abs(originalPosRow - i) + Math.abs(originalPosCol - j);
             }
         }
         return res;
     }
 
-    private int changeIntegerToPosRow (int i) {
+    private int changeIntegerToPosRow(int i) {
         return (i - 1) / this.size();
     }
 
-    private int changeIntegerToPosCol (int i) {
+    private int changeIntegerToPosCol(int i) {
         return (i - 1) % this.size();
     }
 
@@ -196,11 +199,20 @@ public class Board implements WorldState {
     // Returns true if this board's tile values are the same
     // position as y's
     public boolean equals(Object y) {
-        Board board = (Board) y;
+        if (y == this) {
+            return true;
+        }
+        if (y == null) {
+            return false;
+        }
+        if (!y.getClass().equals(Board.class)) {
+            return false;
+        }
+        Board yBoard = (Board) y;
         boolean res = true;
         for (int i = 0; i < this.size(); i++) {
             for (int j = 0; j < this.size(); j++) {
-                if (!Integer.valueOf(board.tileAt(i, j)).equals(this.tileAt(i, j))) {
+                if (!Integer.valueOf(yBoard.tileAt(i, j)).equals(this.tileAt(i, j))) {
                     res = false;
                     break;
                 }
@@ -210,6 +222,15 @@ public class Board implements WorldState {
             }
         }
         return res;
+    }
+
+    @Override
+    public int hashCode() {
+        int hashcode = 0;
+        for (int i = 0; i < this.size(); i++) {
+            hashcode += Arrays.hashCode(this.board[i]);
+        }
+        return hashcode;
     }
 
 
