@@ -67,17 +67,6 @@ public class Board implements WorldState {
         return res;
     }
 
-    // return a copy of board
-    private int[][] copy() {
-        int[][] copyBoard = new int[this.size()][this.size()];
-        for (int i = 0; i < this.size(); i++) {
-            for (int j = 0; j < this.size(); j++) {
-                copyBoard[i][j] = this.tileAt(i, j);
-            }
-        }
-        return copyBoard;
-    }
-
     /**
      * decide whether the blank tile has right tile
      *
@@ -111,6 +100,17 @@ public class Board implements WorldState {
             default:
         }
         return res;
+    }
+
+    // return a copy of board
+    private int[][] copy() {
+        int[][] copyBoard = new int[this.size()][this.size()];
+        for (int i = 0; i < this.size(); i++) {
+            for (int j = 0; j < this.size(); j++) {
+                copyBoard[i][j] = this.tileAt(i, j);
+            }
+        }
+        return copyBoard;
     }
 
     /**
@@ -195,6 +195,7 @@ public class Board implements WorldState {
 
     // Returns true if this board's tile values are the same
     // position as y's
+    @Override
     public boolean equals(Object y) {
         if (y == this) {
             return true;
@@ -238,6 +239,7 @@ public class Board implements WorldState {
      * Returns the string representation of the board.
      * Uncomment this method.
      */
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         int N = size();
